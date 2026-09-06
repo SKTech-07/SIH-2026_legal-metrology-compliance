@@ -1,21 +1,113 @@
-function App() {
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useAuthStore } from './store/authStore';
+import { AppLayout } from './components/AppLayout';
+import { LoginPage } from './pages/auth/LoginPage';
+import { AdminDashboardPage } from './pages/dashboard/AdminDashboardPage';
+import { InspectorDashboardPage } from './pages/dashboard/InspectorDashboardPage';
+import { AdminInspectionsPage } from './pages/inspections/AdminInspectionsPage';
+import { InspectorInspectionsPage } from './pages/inspections/InspectorInspectionsPage';
+import { InspectionWorkspacePage } from './pages/inspections/InspectionWorkspacePage';
+import { ProductCapturePage } from './pages/capture/ProductCapturePage';
+import { ViolationsEvidencePage } from './pages/violations/ViolationsEvidencePage';
+import { ReportsPage } from './pages/reports/ReportsPage';
+import { AnalyticsPage } from './pages/analytics/AnalyticsPage';
+
+const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const token = useAuthStore((state) => state.token);
+  if (!token) {
+    return <Navigate to="/auth/login" replace />;
+  }
+  return <AppLayout>{children}</AppLayout>;
+};
+
+const DashboardRouter: React.FC = () => {
+  const user = useAuthStore((state) => state.user);
+  if (user?.role_name === 'ADMIN') {
+    return <AdminDashboardPage />;
+  }
+  return <InspectorDashboardPage />;
+};
+
+const InspectionsRouter: React.FC = () => {
+  const user = useAuthStore((state) => state.user);
+  if (user?.role_name === 'ADMIN') {
+    return <AdminInspectionsPage />;
+  }
+  return <InspectorInspectionsPage />;
+};
+
+export default function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-xl shadow-lg">
-        <h1 className="text-3xl font-bold text-blue-600">
-          Legal Metrology Compliance
-        </h1>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/auth/login" element={<LoginPage />} />
 
-        <p className="mt-4 text-gray-600">
-          Tailwind CSS is working successfully.
-        </p>
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardRouter />
+            </ProtectedRoute>
+          }
+        />
 
-        <button className="mt-6 rounded-lg bg-blue-600 px-5 py-2 text-white hover:bg-blue-700">
-          Start Inspection
-        </button>
-      </div>
-    </div>
-  )
+        <Route
+          path="/inspections"
+          element={
+            <ProtectedRoute>
+              <InspectionsRouter />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/inspections/:id"
+          element={
+            <ProtectedRoute>
+              <InspectionWorkspacePage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/products/:id/capture"
+          element={
+            <ProtectedRoute>
+              <ProductCapturePage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/violations"
+          element={
+            <ProtectedRoute>
+              <ViolationsEvidencePage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/reports"
+          element={
+            <ProtectedRoute>
+              <ReportsPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/analytics"
+          element={
+            <ProtectedRoute>
+              <AnalyticsPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
-
-export default App
