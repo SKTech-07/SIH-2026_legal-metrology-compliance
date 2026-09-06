@@ -102,7 +102,7 @@ $PYTHON -m pip install --upgrade pip
 echo ""
 echo "Installing PaddlePaddle GPU..."
 
-$PYTHON -m pip install \
+SETUPTOOLS_USE_DISTUTILS=stdlib $PYTHON -m pip install \
     paddlepaddle-gpu==3.3.1 \
     -i https://www.paddlepaddle.org.cn/packages/stable/cu126/
 
