@@ -1,0 +1,126 @@
+{
+  "success": true,
+  "input_image": "D:\\SIH\\SIH-2026_legal-metrology-compliance\\ml\\inference\\WhatsApp Image 2026-09-05 at 15.59.21 (1).jpeg",
+  "enhanced_image": "D:\\SIH\\SIH-2026_legal-metrology-compliance\\ml\\inference\\WhatsApp Image 2026-09-05 at 15.59.21 (1)_enhanced.jpeg",
+  "processing_time_seconds": 7.66,
+  "ocr": [
+    {
+      "text": "MOONG DAL",
+      "confidence": 0.9978,
+      "bbox": [
+        [
+          64,
+          117
+        ],
+        [
+          192,
+          115
+        ],
+        [
+          193,
+          140
+        ],
+        [
+          65,
+          142
+        ]
+      ]
+    },
+    {
+      "text": "20g of protein",
+      "confidence": 0.9896,
+      "bbox": [
+        [
+          333,
+          145
+        ],
+        [
+          396,
+          145
+        ],
+        [
+          396,
+          154
+        ],
+        [
+          333,
+          154
+        ]
+      ]
+    }
+  ],
+  "extracted_fields": {
+    "product_name": "g of protein",
+    "net_quantity": "20G",
+    "mrp": null,
+    "batch_number": null,
+    "manufacturing_date": null,
+    "expiry_date": null,
+    "fssai_license": null
+  },
+  "field_confidence": {
+    "product_name": 0.9896,
+    "net_quantity": 0.9896,
+    "mrp": null,
+    "batch_number": null,
+    "manufacturing_date": null,
+    "expiry_date": null,
+    "fssai_license": null
+  },
+  "compliance": {
+    "status": "VIOLATION",
+    "missing_required_fields": [
+      "mrp",
+      "manufacturing_date",
+      "expiry_date",
+      "fssai_license"
+    ],
+    "unreadable_required_fields": []
+  },
+  "evidence": [
+    {
+      "text": "MOONG DAL",
+      "confidence": 0.9978,
+      "bbox": [
+        [
+          64,
+          117
+        ],
+        [
+          192,
+          115
+        ],
+        [
+          193,
+          140
+        ],
+        [
+          65,
+          142
+        ]
+      ]
+    },
+    {
+      "text": "20g of protein",
+      "confidence": 0.9896,
+      "bbox": [
+        [
+          333,
+          145
+        ],
+        [
+          396,
+          145
+        ],
+        [
+          396,
+          154
+        ],
+        [
+          333,
+          154
+        ]
+      ]
+    }
+  ]
+}

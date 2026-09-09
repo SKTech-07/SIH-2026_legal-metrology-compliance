@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { 
   Plus, 
   Camera, 
@@ -9,26 +9,23 @@ import {
   Store,
   User as UserIcon,
   Package,
-  Calendar,
   AlertCircle
 } from 'lucide-react';
 import { api } from '../../services/api';
 import type { Inspection, Product } from '../../types';
 import { StatusBadge } from '../../components/StatusBadge';
 import { ReportGeneratorModal } from '../../components/ReportGeneratorModal';
+import { AddProductCaptureWizard } from '../../components/AddProductCaptureWizard';
 
 export const InspectionWorkspacePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [inspection, setInspection] = useState<Inspection | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Add Product modal state
-  const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
-  const [prodName, setProdName] = useState('');
-  const [prodCategory, setProdCategory] = useState('Food');
-  const [prodBrand, setProdBrand] = useState('');
-  const [prodBarcode, setProdBarcode] = useState('');
+  // Add Product wizard state (replaces old form modal)
+  const [isWizardOpen, setIsWizardOpen] = useState(false);
 
   // Report Modal state
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
@@ -53,24 +50,13 @@ export const InspectionWorkspacePage: React.FC = () => {
     }
   };
 
-  const handleAddProduct = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await api.post(`/products/inspections/${id}/products`, {
-        name: prodName,
-        category: prodCategory,
-        brand: prodBrand,
-        barcode: prodBarcode
-      });
-      setIsAddProductModalOpen(false);
-      setProdName('');
-      setProdBrand('');
-      setProdBarcode('');
-      fetchInspectionWorkspace();
-    } catch (err) {
-      console.error(err);
-    }
+  /** Called by AddProductCaptureWizard after successful product creation + image upload */
+  const handleWizardSuccess = (productId: string) => {
+    setIsWizardOpen(false);
+    fetchInspectionWorkspace();
+    navigate(`/products/${productId}/capture`);
   };
+
 
   const handleAddCopy = async (productId: string) => {
     try {
@@ -199,11 +185,11 @@ export const InspectionWorkspacePage: React.FC = () => {
               Products ({products.length})
             </h3>
             <p className="text-sm text-gray-500 mt-1">
-              Verify packaged commodities. (Max 5 physical copies per product)
+              Verify packaged commodities.
             </p>
           </div>
           <button
-            onClick={() => setIsAddProductModalOpen(true)}
+            onClick={() => setIsWizardOpen(true)}
             className="w-full sm:w-auto px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-sm flex items-center justify-center space-x-2 transition-colors shrink-0"
           >
             <Plus className="w-4 h-4" />
@@ -274,7 +260,7 @@ export const InspectionWorkspacePage: React.FC = () => {
                   className="w-full lg:w-auto px-5 py-3 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-sm font-semibold rounded-lg shadow-sm flex items-center justify-center space-x-2 transition-colors"
                 >
                   <Camera className="w-5 h-5" />
-                  <span>360° AI Verify</span>
+                  <span>AI Verify</span>
                 </Link>
               </div>
             </div>
@@ -286,7 +272,7 @@ export const InspectionWorkspacePage: React.FC = () => {
               <h3 className="text-lg font-medium text-gray-900">No Products Added</h3>
               <p className="text-gray-500 mt-1 max-w-sm mx-auto text-sm">Start by adding the packaged commodities that you need to inspect at this store.</p>
               <button
-                onClick={() => setIsAddProductModalOpen(true)}
+                onClick={() => setIsWizardOpen(true)}
                 className="mt-6 w-full sm:w-auto px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-sm inline-flex items-center justify-center transition-colors"
               >
                 <Plus className="w-4 h-4 mr-2" />
@@ -297,90 +283,14 @@ export const InspectionWorkspacePage: React.FC = () => {
         </div>
       </div>
 
-      {/* Add Product Modal */}
-      {isAddProductModalOpen && (
-        <div className="fixed inset-0 z-50 bg-gray-900/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white border border-gray-200 rounded-xl w-full max-w-md max-h-[90vh] flex flex-col shadow-2xl">
-            <div className="p-4 md:p-5 border-b border-gray-200 flex items-center justify-between bg-white shrink-0">
-              <h3 className="text-lg font-bold text-gray-900">
-                Add New Product
-              </h3>
-              <button onClick={() => setIsAddProductModalOpen(false)} className="text-gray-400 hover:text-gray-500 p-1">
-                <Plus className="w-6 h-6 rotate-45" />
-              </button>
-            </div>
-
-            <div className="overflow-y-auto">
-              <form onSubmit={handleAddProduct} className="p-4 md:p-6 space-y-4 md:space-y-5 text-sm">
-                <div>
-                  <label className="block text-gray-700 font-medium mb-1.5">Product Name</label>
-                  <input
-                    type="text"
-                    required
-                    value={prodName}
-                    onChange={(e) => setProdName(e.target.value)}
-                    placeholder="e.g. Premium Almond Milk"
-                    className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-gray-700 font-medium mb-1.5">Category</label>
-                  <select
-                    value={prodCategory}
-                    onChange={(e) => setProdCategory(e.target.value)}
-                    className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
-                  >
-                    <option value="Food">Food & Beverage</option>
-                    <option value="Cosmetics">Cosmetics & Personal Care</option>
-                    <option value="Household">Household Goods</option>
-                    <option value="Electronics">Electronics</option>
-                    <option value="Medical">Medical Devices</option>
-                    <option value="General">General Commodity</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-gray-700 font-medium mb-1.5">Brand Name</label>
-                  <input
-                    type="text"
-                    value={prodBrand}
-                    onChange={(e) => setProdBrand(e.target.value)}
-                    placeholder="e.g. Apex Consumer"
-                    className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-gray-700 font-medium mb-1.5">Barcode / EAN</label>
-                  <input
-                    type="text"
-                    value={prodBarcode}
-                    onChange={(e) => setProdBarcode(e.target.value)}
-                    placeholder="e.g. 8901234567890"
-                    className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white font-mono"
-                  />
-                </div>
-
-                <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-3 pt-4 border-t border-gray-100">
-                  <button
-                    type="button"
-                    onClick={() => setIsAddProductModalOpen(false)}
-                    className="w-full sm:w-auto px-4 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="w-full sm:w-auto px-5 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
-                  >
-                    Add Product
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+      {/* Add Product Capture Wizard — replaces the old Add Product modal */}
+      {id && (
+        <AddProductCaptureWizard
+          inspectionId={id}
+          isOpen={isWizardOpen}
+          onClose={() => setIsWizardOpen(false)}
+          onSuccess={handleWizardSuccess}
+        />
       )}
 
       {/* Report Modal */}

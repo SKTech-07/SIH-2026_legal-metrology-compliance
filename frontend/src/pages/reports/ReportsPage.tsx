@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FileSpreadsheet, Download, Clock, Search, Filter } from 'lucide-react';
-import { api } from '../../services/api';
+import { api, getBaseUrl } from '../../services/api';
 import type { Report } from '../../types';
 
 export const ReportsPage: React.FC = () => {
@@ -100,7 +100,7 @@ export const ReportsPage: React.FC = () => {
                   </td>
                   <td className="py-3 px-5 text-right">
                     <a
-                      href={`http://localhost:8000${r.file_url}`}
+                      href={`${getBaseUrl()}${r.file_url}`}
                       target="_blank"
                       rel="noreferrer"
                       className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-md font-medium text-xs inline-flex items-center transition-colors shadow-sm"

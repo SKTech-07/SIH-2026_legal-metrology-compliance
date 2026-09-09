@@ -1,0 +1,5 @@
+{
+  "success": false,
+  "error": "(Unimplemented) ConvertPirAttribute2RuntimeAttribute not support [pir::ArrayAttribute<pir::DoubleAttribute>]  (at ..\\paddle\\fluid\\framework\\new_executor\\instruction\\onednn\\onednn_instruction.cc:118)\n",
+  "input_image": "D:\\SIH\\SIH-2026_legal-metrology-compliance\\ml\\inference\\WhatsApp Image 2026-09-05 at 15.59.21 (1).jpeg"
+}

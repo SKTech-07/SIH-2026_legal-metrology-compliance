@@ -3,7 +3,7 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.database.connection import get_db
-from app.models import Violation, Evidence, Product, Rule, ReviewTask, User
+from app.models import Violation, Evidence, Product, Rule, ReviewTask, User, ComplianceResult
 from app.schemas import ViolationOut, EvidenceOut, ReviewActionRequest
 from app.dependencies import get_current_user, require_permission
 
@@ -56,6 +56,34 @@ def get_violation(id: str, db: Session = Depends(get_db), current_user: User = D
     return out
 
 
+def _sync_compliance_status(db: Session, product: Product, rule_id: str, new_comp_status: str):
+    comp_res = db.query(ComplianceResult).filter(
+        ComplianceResult.product_id == product.id,
+        ComplianceResult.rule_id == rule_id
+    ).first()
+    
+    old_comp_status = comp_res.status if comp_res else "UNKNOWN"
+    if comp_res:
+        comp_res.status = new_comp_status
+
+    all_results = db.query(ComplianceResult).filter(ComplianceResult.product_id == product.id).all()
+    has_fail = any(r.status == "FAIL" for r in all_results)
+    has_review = any(r.status == "REVIEW" for r in all_results)
+    
+    old_prod_status = product.status
+    if has_fail:
+        product.status = "FAIL"
+    elif has_review:
+        product.status = "REVIEW"
+    else:
+        product.status = "PASS"
+        
+    print(f"[HUMAN-REVIEW] Action resolved rule {rule_id} for product {product.id}")
+    print(f"[HUMAN-REVIEW] ComplianceResult: {old_comp_status} -> {new_comp_status}")
+    print(f"[HUMAN-REVIEW] Remaining unpassed rules: {[r.rule_id for r in all_results if r.status != 'PASS']}")
+    print(f"[HUMAN-REVIEW] Overall product status: {old_prod_status} -> {product.status}")
+
+
 @router.post("/{id}/confirm")
 def confirm_violation(
     id: str,
@@ -80,9 +108,8 @@ def confirm_violation(
     )
     db.add(task)
 
-    # Mark product as FAIL
-    if v.product:
-        v.product.status = "FAIL"
+    if v.product and v.rule_id:
+        _sync_compliance_status(db, v.product, v.rule_id, "FAIL")
 
     db.commit()
     return {"message": "Violation confirmed successfully", "status": "CONFIRMED"}
@@ -111,14 +138,8 @@ def reject_violation(
     )
     db.add(task)
 
-    # Check if remaining violations exist for product
-    other = db.query(Violation).filter(
-        Violation.product_id == v.product_id,
-        Violation.id != id,
-        Violation.status == "CONFIRMED"
-    ).first()
-    if not other and v.product:
-        v.product.status = "PASS"
+    if v.product and v.rule_id:
+        _sync_compliance_status(db, v.product, v.rule_id, "PASS")
 
     db.commit()
     return {"message": "Violation rejected", "status": "REJECTED"}
@@ -147,8 +168,8 @@ def request_reinspection(
     )
     db.add(task)
 
-    if v.product:
-        v.product.status = "REVIEW"
+    if v.product and v.rule_id:
+        _sync_compliance_status(db, v.product, v.rule_id, "REVIEW")
 
     db.commit()
     return {"message": "Reinspection requested", "status": "REINSPECTION_REQUESTED"}

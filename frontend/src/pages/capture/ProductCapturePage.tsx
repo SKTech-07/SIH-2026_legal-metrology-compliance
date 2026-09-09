@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
   Camera, 
@@ -8,7 +8,12 @@ import {
   Package,
   Image as ImageIcon
 } from 'lucide-react';
-import { api } from '../../services/api';
+import { api, getBaseUrl } from '../../services/api';
+
+// Derive the server base URL (scheme + host + port) from the same env var
+// used by api.ts, so it works on physical mobile devices over LAN.
+// e.g. VITE_API_URL = 'http://10.125.149.225:8000/api/v1'
+
 import type { Product, ProductCopy, ImageRecord, ImageQuality, Declaration, ComplianceResult, Violation, PackageSide } from '../../types';
 import { CameraCaptureModal } from '../../components/CameraCaptureModal';
 import { QualityScoreWidget } from '../../components/QualityScoreWidget';
@@ -67,14 +72,22 @@ export const ProductCapturePage: React.FC = () => {
     }
   };
 
-  const fetchCopyImages = async (copyId: string) => {
+  const fetchCopyImages = useCallback(async (copyId: string) => {
     try {
-      await api.get(`/copies/${copyId}`);
-      // Mock images attached if any
+      // GET /images/copies/{copy_id} returns all ImageRecord rows for this copy.
+      const res = await api.get(`/images/copies/${copyId}`);
+      if (Array.isArray(res.data) && res.data.length > 0) {
+        setImages(res.data);
+        // Auto-select the first image and kick off quality analysis
+        setSelectedImage(res.data[0]);
+        handleAnalyzeQuality(res.data[0].id);
+      }
     } catch (err) {
-      console.error(err);
+      // Endpoint may not exist yet or copy has no images — silently ignore
+      console.warn('fetchCopyImages:', err);
     }
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const fetchDeclarations = async () => {
     try {
@@ -97,7 +110,7 @@ export const ProductCapturePage: React.FC = () => {
   const fetchViolations = async () => {
     try {
       const res = await api.get('/violations');
-      setViolations(res.data.filter((v: Violation) => v.product_id === id));
+      setViolations(res.data.filter((v: Violation) => v.product_id === id && v.status !== 'REJECTED'));
     } catch (err) {
       console.error(err);
     }
@@ -110,9 +123,12 @@ export const ProductCapturePage: React.FC = () => {
     const res = await api.post(`/images/copies/${copyId}/upload`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     });
-    setSelectedImage(res.data);
-    setImages([...images, res.data]);
-    handleAnalyzeQuality(res.data.id);
+    const uploadedImage = res.data;
+    setSelectedImage(uploadedImage);
+    setImages((prev) => [...prev, uploadedImage]);
+    // Run quality analysis and OCR in parallel; OCR populates declarations.
+    handleAnalyzeQuality(uploadedImage.id);
+    await runOCRForImage(uploadedImage.id);
   };
 
   const handleAnalyzeQuality = async (imageId: string) => {
@@ -121,6 +137,26 @@ export const ProductCapturePage: React.FC = () => {
       setQuality(res.data);
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  /**
+   * Shared helper: POST OCR for a specific imageId, update aiData state,
+   * then re-fetch declarations so the table reflects newly extracted fields.
+   * Called automatically after upload AND when the user clicks "AI Scan".
+   */
+  const runOCRForImage = async (imageId: string) => {
+    setIsAIProcessing(true);
+    try {
+      const res = await api.post(`/ocr/images/${imageId}/process`);
+      setAiData(res.data);
+      // Await the declaration refresh so state is guaranteed to be current
+      // before this function returns; fixes the previous fire-and-forget race.
+      await fetchDeclarations();
+    } catch (err) {
+      console.error('OCR processing error:', err);
+    } finally {
+      setIsAIProcessing(false);
     }
   };
 
@@ -137,18 +173,10 @@ export const ProductCapturePage: React.FC = () => {
     }
   };
 
+  // Manual "AI Scan" button — re-runs OCR on the currently selected image.
   const handleTriggerAI = async () => {
     if (!selectedImage) return;
-    setIsAIProcessing(true);
-    try {
-      const res = await api.post(`/ocr/images/${selectedImage.id}/process`);
-      setAiData(res.data);
-      fetchDeclarations();
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsAIProcessing(false);
-    }
+    await runOCRForImage(selectedImage.id);
   };
 
   const handleRunCompliance = async () => {
@@ -188,6 +216,7 @@ export const ProductCapturePage: React.FC = () => {
     }
     fetchProductDetails();
     fetchViolations();
+    fetchCompliance();
   };
 
   if (loading || !product) {
@@ -216,14 +245,6 @@ export const ProductCapturePage: React.FC = () => {
 
         {/* Quick Stepper Action Buttons */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto shrink-0">
-          <button
-            onClick={() => setIsCameraModalOpen(true)}
-            className="flex-1 sm:flex-none px-4 py-2.5 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 font-semibold rounded-lg shadow-sm flex items-center justify-center space-x-2 transition-colors"
-          >
-            <Camera className="w-5 h-5" />
-            <span>Capture Side</span>
-          </button>
-
           {selectedImage && (
             <button
               onClick={handleTriggerAI}
@@ -253,11 +274,17 @@ export const ProductCapturePage: React.FC = () => {
               </span>
             </div>
 
-            <div className="aspect-[4/3] sm:aspect-video lg:aspect-square bg-gray-50 rounded-lg overflow-hidden border border-gray-200 relative flex items-center justify-center shadow-inner w-full">
+            <div
+              className={`aspect-[4/3] sm:aspect-video lg:aspect-square bg-gray-50 rounded-lg overflow-hidden border border-gray-200 relative flex items-center justify-center shadow-inner w-full ${
+                !selectedImage && activeCopy ? 'cursor-pointer' : ''
+              }`}
+              onClick={!selectedImage && activeCopy ? () => setIsCameraModalOpen(true) : undefined}
+              role={!selectedImage && activeCopy ? 'button' : undefined}
+            >
               {selectedImage ? (
                 <img
-                  src={`http://localhost:8000${selectedImage.original_url}`}
-                  alt="Package Side"
+                  src={`${getBaseUrl()}${selectedImage.original_url}`}
+                  alt={`Package Side – ${selectedImage.side}`}
                   className="w-full h-full object-contain p-2"
                 />
               ) : (
@@ -303,8 +330,8 @@ export const ProductCapturePage: React.FC = () => {
           {enhancement && selectedImage && (
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
               <EnhancementComparison
-                originalUrl={`http://localhost:8000${selectedImage.original_url}`}
-                enhancedUrl={`http://localhost:8000${enhancement.enhanced_url}`}
+                originalUrl={`${getBaseUrl()}${selectedImage.original_url}`}
+                enhancedUrl={`${getBaseUrl()}${enhancement.enhanced_url}`}
                 operations={enhancement.applied_operations}
                 qualityBefore={enhancement.quality_before}
                 qualityAfter={enhancement.quality_after}
@@ -402,6 +429,8 @@ export const ProductCapturePage: React.FC = () => {
         violation={selectedEvidence}
         isOpen={!!selectedEvidence}
         onClose={() => setSelectedEvidence(null)}
+        fallbackImageUrl={selectedImage ? `${getBaseUrl()}${selectedImage.original_url}` : undefined}
+        detections={aiData?.detections}
       />
 
       <HumanReviewModal

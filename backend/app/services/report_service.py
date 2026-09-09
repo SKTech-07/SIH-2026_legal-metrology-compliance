@@ -5,7 +5,8 @@ import uuid
 import datetime
 from typing import List, Dict, Any
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image, KeepTogether
+from reportlab.lib.utils import ImageReader
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
 from app.config import settings
@@ -113,6 +114,46 @@ def generate_pdf_report(
             ('TOPPADDING', (0, 0), (-1, -1), 5),
         ]))
         story.append(viol_table)
+
+    # Evidence Images
+    has_evidence = any(v.get("evidence_url") for v in violations_data)
+    if violations_data and has_evidence:
+        story.append(Spacer(1, 20))
+        for v in violations_data:
+            ev_url = v.get("evidence_url")
+            if not ev_url:
+                continue
+            
+            # Extract filename from url
+            img_filename = ev_url.split("/")[-1]
+            local_path = None
+            
+            # Search for the local file
+            for d in [settings.UPLOAD_DIR, settings.ENHANCED_DIR, settings.EVIDENCE_DIR, settings.REPORT_DIR]:
+                p = os.path.join(d, img_filename)
+                if os.path.exists(p):
+                    local_path = p
+                    break
+                    
+            if local_path:
+                try:
+                    img_reader = ImageReader(local_path)
+                    iw, ih = img_reader.getSize()
+                    aspect = ih / float(iw)
+                    target_width = 450
+                    target_height = target_width * aspect
+                    
+                    # Create label
+                    label = f"Violation Evidence — {v.get('product_name', 'Product')} ({v.get('rule_code', 'Rule')})"
+                    story.append(KeepTogether([
+                        Spacer(1, 10),
+                        Paragraph(label, subtitle_style),
+                        Spacer(1, 5),
+                        Image(local_path, width=target_width, height=target_height),
+                        Spacer(1, 15)
+                    ]))
+                except Exception as e:
+                    print(f"Error embedding image {local_path}: {e}")
 
     doc.build(story)
     return f"/api/v1/reports/file/{filename}"

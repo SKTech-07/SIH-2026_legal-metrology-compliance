@@ -1,0 +1,1492 @@
+{
+  "success": true,
+  "input_image": "D:\\SIH\\SIH-2026_legal-metrology-compliance\\ml\\inference\\d44b1804-72e3-4ce5-993b-d659e9253694.jpg",
+  "enhanced_image": "D:\\SIH\\SIH-2026_legal-metrology-compliance\\ml\\inference\\d44b1804-72e3-4ce5-993b-d659e9253694_enhanced.jpg",
+  "processing_time_seconds": 30.7,
+  "ocr": [
+    {
+      "text": "OTHER",
+      "confidence": 0.9999,
+      "bbox": [
+        [
+          66,
+          296
+        ],
+        [
+          154,
+          300
+        ],
+        [
+          152,
+          329
+        ],
+        [
+          64,
+          325
+        ]
+      ]
+    },
+    {
+      "text": "KIOAR AR",
+      "confidence": 0.5216,
+      "bbox": [
+        [
+          408,
+          298
+        ],
+        [
+          476,
+          298
+        ],
+        [
+          476,
+          333
+        ],
+        [
+          408,
+          333
+        ]
+      ]
+    },
+    {
+      "text": "Why Cavin's Chocolate Milkshake?",
+      "confidence": 0.9998,
+      "bbox": [
+        [
+          82,
+          354
+        ],
+        [
+          440,
+          357
+        ],
+        [
+          440,
+          392
+        ],
+        [
+          82,
+          389
+        ]
+      ]
+    },
+    {
+      "text": "84% Milk",
+      "confidence": 0.9998,
+      "bbox": [
+        [
+          212,
+          441
+        ],
+        [
+          330,
+          441
+        ],
+        [
+          330,
+          472
+        ],
+        [
+          212,
+          472
+        ]
+      ]
+    },
+    {
+      "text": "Calcium supports Strong Bones",
+      "confidence": 0.9995,
+      "bbox": [
+        [
+          114,
+          504
+        ],
+        [
+          460,
+          502
+        ],
+        [
+          460,
+          537
+        ],
+        [
+          115,
+          539
+        ]
+      ]
+    },
+    {
+      "text": "Instant Energy",
+      "confidence": 1.0,
+      "bbox": [
+        [
+          179,
+          573
+        ],
+        [
+          351,
+          576
+        ],
+        [
+          350,
+          607
+        ],
+        [
+          179,
+          604
+        ]
+      ]
+    },
+    {
+      "text": "Shake well before use. Tastes great when served chilled.",
+      "confidence": 0.9803,
+      "bbox": [
+        [
+          42,
+          646
+        ],
+        [
+          476,
+          646
+        ],
+        [
+          476,
+          677
+        ],
+        [
+          42,
+          677
+        ]
+      ]
+    },
+    {
+      "text": "Donotbuypackifspued/leaking/damaged/seake",
+      "confidence": 0.6602,
+      "bbox": [
+        [
+          50,
+          678
+        ],
+        [
+          469,
+          678
+        ],
+        [
+          469,
+          709
+        ],
+        [
+          50,
+          709
+        ]
+      ]
+    },
+    {
+      "text": "Consumeimmediatelyafteropening/breakingseal",
+      "confidence": 0.8866,
+      "bbox": [
+        [
+          96,
+          709
+        ],
+        [
+          433,
+          711
+        ],
+        [
+          432,
+          742
+        ],
+        [
+          96,
+          740
+        ]
+      ]
+    },
+    {
+      "text": "For Maximum Retail Price:.",
+      "confidence": 0.9911,
+      "bbox": [
+        [
+          85,
+          763
+        ],
+        [
+          441,
+          762
+        ],
+        [
+          441,
+          793
+        ],
+        [
+          85,
+          794
+        ]
+      ]
+    },
+    {
+      "text": "(inclusive of all taxes), Batch No.,",
+      "confidence": 0.9996,
+      "bbox": [
+        [
+          61,
+          791
+        ],
+        [
+          458,
+          789
+        ],
+        [
+          458,
+          827
+        ],
+        [
+          62,
+          829
+        ]
+      ]
+    },
+    {
+      "text": "Date of Manufacture, Use by Date,",
+      "confidence": 0.9843,
+      "bbox": [
+        [
+          49,
+          821
+        ],
+        [
+          466,
+          824
+        ],
+        [
+          466,
+          859
+        ],
+        [
+          49,
+          856
+        ]
+      ]
+    },
+    {
+      "text": "Net Quantity, See the Top Panel.",
+      "confidence": 0.992,
+      "bbox": [
+        [
+          66,
+          851
+        ],
+        [
+          461,
+          854
+        ],
+        [
+          461,
+          892
+        ],
+        [
+          65,
+          889
+        ]
+      ]
+    },
+    {
+      "text": "TM Owned & Marketed by:",
+      "confidence": 0.9801,
+      "bbox": [
+        [
+          44,
+          895
+        ],
+        [
+          278,
+          892
+        ],
+        [
+          278,
+          916
+        ],
+        [
+          44,
+          919
+        ]
+      ]
+    },
+    {
+      "text": "CavinKare Private Limited,",
+      "confidence": 0.9999,
+      "bbox": [
+        [
+          44,
+          916
+        ],
+        [
+          258,
+          913
+        ],
+        [
+          259,
+          937
+        ],
+        [
+          44,
+          940
+        ]
+      ]
+    },
+    {
+      "text": "fssai",
+      "confidence": 0.9538,
+      "bbox": [
+        [
+          336,
+          913
+        ],
+        [
+          485,
+          913
+        ],
+        [
+          485,
+          998
+        ],
+        [
+          336,
+          998
+        ]
+      ]
+    },
+    {
+      "text": "No. 12, Poonthamallee Road,",
+      "confidence": 0.9756,
+      "bbox": [
+        [
+          45,
+          938
+        ],
+        [
+          274,
+          936
+        ],
+        [
+          274,
+          957
+        ],
+        [
+          45,
+          959
+        ]
+      ]
+    },
+    {
+      "text": "Ekkatuthangal, Chennai-600 032.",
+      "confidence": 0.9821,
+      "bbox": [
+        [
+          44,
+          958
+        ],
+        [
+          323,
+          956
+        ],
+        [
+          323,
+          980
+        ],
+        [
+          44,
+          982
+        ]
+      ]
+    },
+    {
+      "text": "LuC.No.10014042001362",
+      "confidence": 0.9457,
+      "bbox": [
+        [
+          169,
+          985
+        ],
+        [
+          479,
+          991
+        ],
+        [
+          478,
+          1029
+        ],
+        [
+          168,
+          1023
+        ]
+      ]
+    },
+    {
+      "text": "Manufactured at:",
+      "confidence": 0.9936,
+      "bbox": [
+        [
+          43,
+          1028
+        ],
+        [
+          199,
+          1030
+        ],
+        [
+          198,
+          1054
+        ],
+        [
+          43,
+          1052
+        ]
+      ]
+    },
+    {
+      "text": "CavinKare Private Limited,",
+      "confidence": 0.9977,
+      "bbox": [
+        [
+          42,
+          1050
+        ],
+        [
+          258,
+          1053
+        ],
+        [
+          257,
+          1077
+        ],
+        [
+          42,
+          1074
+        ]
+      ]
+    },
+    {
+      "text": "SF.No: 582, Bhavani to Anthiyur Main Road,",
+      "confidence": 0.9888,
+      "bbox": [
+        [
+          42,
+          1072
+        ],
+        [
+          389,
+          1073
+        ],
+        [
+          389,
+          1098
+        ],
+        [
+          42,
+          1097
+        ]
+      ]
+    },
+    {
+      "text": "Mylambadi, Kannadipalayam Post,",
+      "confidence": 0.9988,
+      "bbox": [
+        [
+          42,
+          1094
+        ],
+        [
+          325,
+          1095
+        ],
+        [
+          325,
+          1119
+        ],
+        [
+          42,
+          1118
+        ]
+      ]
+    },
+    {
+      "text": "Bhavani Taluk, Erode District - 638 314,",
+      "confidence": 0.9918,
+      "bbox": [
+        [
+          40,
+          1114
+        ],
+        [
+          356,
+          1115
+        ],
+        [
+          356,
+          1142
+        ],
+        [
+          40,
+          1141
+        ]
+      ]
+    },
+    {
+      "text": "State-Tamil Nadu, India.",
+      "confidence": 0.9964,
+      "bbox": [
+        [
+          40,
+          1136
+        ],
+        [
+          249,
+          1138
+        ],
+        [
+          248,
+          1165
+        ],
+        [
+          40,
+          1163
+        ]
+      ]
+    },
+    {
+      "text": "uC. No. 10012042000121",
+      "confidence": 0.9315,
+      "bbox": [
+        [
+          39,
+          1167
+        ],
+        [
+          368,
+          1165
+        ],
+        [
+          368,
+          1206
+        ],
+        [
+          39,
+          1208
+        ]
+      ]
+    },
+    {
+      "text": "onuereb",
+      "confidence": 0.4711,
+      "bbox": [
+        [
+          156,
+          1233
+        ],
+        [
+          462,
+          1230
+        ],
+        [
+          462,
+          1286
+        ],
+        [
+          157,
+          1289
+        ]
+      ]
+    },
+    {
+      "text": "contactConsumer CareExecue",
+      "confidence": 0.8308,
+      "bbox": [
+        [
+          167,
+          1286
+        ],
+        [
+          454,
+          1283
+        ],
+        [
+          454,
+          1331
+        ],
+        [
+          167,
+          1334
+        ]
+      ]
+    },
+    {
+      "text": "CavinKaretehenaa",
+      "confidence": 0.6918,
+      "bbox": [
+        [
+          161,
+          1330
+        ],
+        [
+          461,
+          1324
+        ],
+        [
+          463,
+          1376
+        ],
+        [
+          162,
+          1382
+        ]
+      ]
+    },
+    {
+      "text": "Ca18004190671(T-r",
+      "confidence": 0.8309,
+      "bbox": [
+        [
+          165,
+          1374
+        ],
+        [
+          458,
+          1372
+        ],
+        [
+          458,
+          1435
+        ],
+        [
+          165,
+          1437
+        ]
+      ]
+    },
+    {
+      "text": "maomereed",
+      "confidence": 0.5408,
+      "bbox": [
+        [
+          131,
+          1429
+        ],
+        [
+          486,
+          1432
+        ],
+        [
+          485,
+          1480
+        ],
+        [
+          131,
+          1477
+        ]
+      ]
+    },
+    {
+      "text": "-",
+      "confidence": 0.4139,
+      "bbox": [
+        [
+          29,
+          1484
+        ],
+        [
+          495,
+          1500
+        ],
+        [
+          494,
+          1531
+        ],
+        [
+          28,
+          1515
+        ]
+      ]
+    },
+    {
+      "text": "eas tlesecodtivrg sia mcrledplastis",
+      "confidence": 0.3957,
+      "bbox": [
+        [
+          144,
+          1507
+        ],
+        [
+          395,
+          1524
+        ],
+        [
+          394,
+          1545
+        ],
+        [
+          143,
+          1528
+        ]
+      ]
+    }
+  ],
+  "extracted_fields": {
+    "product_name": "Shake well before use Tastes great when served chilled",
+    "net_quantity": null,
+    "mrp": null,
+    "batch_number": "DETECTED_BUT_UNREADABLE",
+    "manufacturing_date": null,
+    "expiry_date": null,
+    "fssai_license": "DETECTED_BUT_UNREADABLE"
+  },
+  "field_confidence": {
+    "product_name": 0.9803,
+    "net_quantity": null,
+    "mrp": null,
+    "batch_number": null,
+    "manufacturing_date": null,
+    "expiry_date": null,
+    "fssai_license": null
+  },
+  "compliance": {
+    "status": "VIOLATION",
+    "missing_required_fields": [
+      "net_quantity",
+      "mrp",
+      "manufacturing_date",
+      "expiry_date"
+    ],
+    "unreadable_required_fields": [
+      "fssai_license"
+    ]
+  },
+  "evidence": [
+    {
+      "text": "OTHER",
+      "confidence": 0.9999,
+      "bbox": [
+        [
+          66,
+          296
+        ],
+        [
+          154,
+          300
+        ],
+        [
+          152,
+          329
+        ],
+        [
+          64,
+          325
+        ]
+      ]
+    },
+    {
+      "text": "KIOAR AR",
+      "confidence": 0.5216,
+      "bbox": [
+        [
+          408,
+          298
+        ],
+        [
+          476,
+          298
+        ],
+        [
+          476,
+          333
+        ],
+        [
+          408,
+          333
+        ]
+      ]
+    },
+    {
+      "text": "Why Cavin's Chocolate Milkshake?",
+      "confidence": 0.9998,
+      "bbox": [
+        [
+          82,
+          354
+        ],
+        [
+          440,
+          357
+        ],
+        [
+          440,
+          392
+        ],
+        [
+          82,
+          389
+        ]
+      ]
+    },
+    {
+      "text": "84% Milk",
+      "confidence": 0.9998,
+      "bbox": [
+        [
+          212,
+          441
+        ],
+        [
+          330,
+          441
+        ],
+        [
+          330,
+          472
+        ],
+        [
+          212,
+          472
+        ]
+      ]
+    },
+    {
+      "text": "Calcium supports Strong Bones",
+      "confidence": 0.9995,
+      "bbox": [
+        [
+          114,
+          504
+        ],
+        [
+          460,
+          502
+        ],
+        [
+          460,
+          537
+        ],
+        [
+          115,
+          539
+        ]
+      ]
+    },
+    {
+      "text": "Instant Energy",
+      "confidence": 1.0,
+      "bbox": [
+        [
+          179,
+          573
+        ],
+        [
+          351,
+          576
+        ],
+        [
+          350,
+          607
+        ],
+        [
+          179,
+          604
+        ]
+      ]
+    },
+    {
+      "text": "Shake well before use. Tastes great when served chilled.",
+      "confidence": 0.9803,
+      "bbox": [
+        [
+          42,
+          646
+        ],
+        [
+          476,
+          646
+        ],
+        [
+          476,
+          677
+        ],
+        [
+          42,
+          677
+        ]
+      ]
+    },
+    {
+      "text": "Donotbuypackifspued/leaking/damaged/seake",
+      "confidence": 0.6602,
+      "bbox": [
+        [
+          50,
+          678
+        ],
+        [
+          469,
+          678
+        ],
+        [
+          469,
+          709
+        ],
+        [
+          50,
+          709
+        ]
+      ]
+    },
+    {
+      "text": "Consumeimmediatelyafteropening/breakingseal",
+      "confidence": 0.8866,
+      "bbox": [
+        [
+          96,
+          709
+        ],
+        [
+          433,
+          711
+        ],
+        [
+          432,
+          742
+        ],
+        [
+          96,
+          740
+        ]
+      ]
+    },
+    {
+      "text": "For Maximum Retail Price:.",
+      "confidence": 0.9911,
+      "bbox": [
+        [
+          85,
+          763
+        ],
+        [
+          441,
+          762
+        ],
+        [
+          441,
+          793
+        ],
+        [
+          85,
+          794
+        ]
+      ]
+    },
+    {
+      "text": "(inclusive of all taxes), Batch No.,",
+      "confidence": 0.9996,
+      "bbox": [
+        [
+          61,
+          791
+        ],
+        [
+          458,
+          789
+        ],
+        [
+          458,
+          827
+        ],
+        [
+          62,
+          829
+        ]
+      ]
+    },
+    {
+      "text": "Date of Manufacture, Use by Date,",
+      "confidence": 0.9843,
+      "bbox": [
+        [
+          49,
+          821
+        ],
+        [
+          466,
+          824
+        ],
+        [
+          466,
+          859
+        ],
+        [
+          49,
+          856
+        ]
+      ]
+    },
+    {
+      "text": "Net Quantity, See the Top Panel.",
+      "confidence": 0.992,
+      "bbox": [
+        [
+          66,
+          851
+        ],
+        [
+          461,
+          854
+        ],
+        [
+          461,
+          892
+        ],
+        [
+          65,
+          889
+        ]
+      ]
+    },
+    {
+      "text": "TM Owned & Marketed by:",
+      "confidence": 0.9801,
+      "bbox": [
+        [
+          44,
+          895
+        ],
+        [
+          278,
+          892
+        ],
+        [
+          278,
+          916
+        ],
+        [
+          44,
+          919
+        ]
+      ]
+    },
+    {
+      "text": "CavinKare Private Limited,",
+      "confidence": 0.9999,
+      "bbox": [
+        [
+          44,
+          916
+        ],
+        [
+          258,
+          913
+        ],
+        [
+          259,
+          937
+        ],
+        [
+          44,
+          940
+        ]
+      ]
+    },
+    {
+      "text": "fssai",
+      "confidence": 0.9538,
+      "bbox": [
+        [
+          336,
+          913
+        ],
+        [
+          485,
+          913
+        ],
+        [
+          485,
+          998
+        ],
+        [
+          336,
+          998
+        ]
+      ]
+    },
+    {
+      "text": "No. 12, Poonthamallee Road,",
+      "confidence": 0.9756,
+      "bbox": [
+        [
+          45,
+          938
+        ],
+        [
+          274,
+          936
+        ],
+        [
+          274,
+          957
+        ],
+        [
+          45,
+          959
+        ]
+      ]
+    },
+    {
+      "text": "Ekkatuthangal, Chennai-600 032.",
+      "confidence": 0.9821,
+      "bbox": [
+        [
+          44,
+          958
+        ],
+        [
+          323,
+          956
+        ],
+        [
+          323,
+          980
+        ],
+        [
+          44,
+          982
+        ]
+      ]
+    },
+    {
+      "text": "LuC.No.10014042001362",
+      "confidence": 0.9457,
+      "bbox": [
+        [
+          169,
+          985
+        ],
+        [
+          479,
+          991
+        ],
+        [
+          478,
+          1029
+        ],
+        [
+          168,
+          1023
+        ]
+      ]
+    },
+    {
+      "text": "Manufactured at:",
+      "confidence": 0.9936,
+      "bbox": [
+        [
+          43,
+          1028
+        ],
+        [
+          199,
+          1030
+        ],
+        [
+          198,
+          1054
+        ],
+        [
+          43,
+          1052
+        ]
+      ]
+    },
+    {
+      "text": "CavinKare Private Limited,",
+      "confidence": 0.9977,
+      "bbox": [
+        [
+          42,
+          1050
+        ],
+        [
+          258,
+          1053
+        ],
+        [
+          257,
+          1077
+        ],
+        [
+          42,
+          1074
+        ]
+      ]
+    },
+    {
+      "text": "SF.No: 582, Bhavani to Anthiyur Main Road,",
+      "confidence": 0.9888,
+      "bbox": [
+        [
+          42,
+          1072
+        ],
+        [
+          389,
+          1073
+        ],
+        [
+          389,
+          1098
+        ],
+        [
+          42,
+          1097
+        ]
+      ]
+    },
+    {
+      "text": "Mylambadi, Kannadipalayam Post,",
+      "confidence": 0.9988,
+      "bbox": [
+        [
+          42,
+          1094
+        ],
+        [
+          325,
+          1095
+        ],
+        [
+          325,
+          1119
+        ],
+        [
+          42,
+          1118
+        ]
+      ]
+    },
+    {
+      "text": "Bhavani Taluk, Erode District - 638 314,",
+      "confidence": 0.9918,
+      "bbox": [
+        [
+          40,
+          1114
+        ],
+        [
+          356,
+          1115
+        ],
+        [
+          356,
+          1142
+        ],
+        [
+          40,
+          1141
+        ]
+      ]
+    },
+    {
+      "text": "State-Tamil Nadu, India.",
+      "confidence": 0.9964,
+      "bbox": [
+        [
+          40,
+          1136
+        ],
+        [
+          249,
+          1138
+        ],
+        [
+          248,
+          1165
+        ],
+        [
+          40,
+          1163
+        ]
+      ]
+    },
+    {
+      "text": "uC. No. 10012042000121",
+      "confidence": 0.9315,
+      "bbox": [
+        [
+          39,
+          1167
+        ],
+        [
+          368,
+          1165
+        ],
+        [
+          368,
+          1206
+        ],
+        [
+          39,
+          1208
+        ]
+      ]
+    },
+    {
+      "text": "onuereb",
+      "confidence": 0.4711,
+      "bbox": [
+        [
+          156,
+          1233
+        ],
+        [
+          462,
+          1230
+        ],
+        [
+          462,
+          1286
+        ],
+        [
+          157,
+          1289
+        ]
+      ]
+    },
+    {
+      "text": "contactConsumer CareExecue",
+      "confidence": 0.8308,
+      "bbox": [
+        [
+          167,
+          1286
+        ],
+        [
+          454,
+          1283
+        ],
+        [
+          454,
+          1331
+        ],
+        [
+          167,
+          1334
+        ]
+      ]
+    },
+    {
+      "text": "CavinKaretehenaa",
+      "confidence": 0.6918,
+      "bbox": [
+        [
+          161,
+          1330
+        ],
+        [
+          461,
+          1324
+        ],
+        [
+          463,
+          1376
+        ],
+        [
+          162,
+          1382
+        ]
+      ]
+    },
+    {
+      "text": "Ca18004190671(T-r",
+      "confidence": 0.8309,
+      "bbox": [
+        [
+          165,
+          1374
+        ],
+        [
+          458,
+          1372
+        ],
+        [
+          458,
+          1435
+        ],
+        [
+          165,
+          1437
+        ]
+      ]
+    },
+    {
+      "text": "maomereed",
+      "confidence": 0.5408,
+      "bbox": [
+        [
+          131,
+          1429
+        ],
+        [
+          486,
+          1432
+        ],
+        [
+          485,
+          1480
+        ],
+        [
+          131,
+          1477
+        ]
+      ]
+    },
+    {
+      "text": "-",
+      "confidence": 0.4139,
+      "bbox": [
+        [
+          29,
+          1484
+        ],
+        [
+          495,
+          1500
+        ],
+        [
+          494,
+          1531
+        ],
+        [
+          28,
+          1515
+        ]
+      ]
+    },
+    {
+      "text": "eas tlesecodtivrg sia mcrledplastis",
+      "confidence": 0.3957,
+      "bbox": [
+        [
+          144,
+          1507
+        ],
+        [
+          395,
+          1524
+        ],
+        [
+          394,
+          1545
+        ],
+        [
+          143,
+          1528
+        ]
+      ]
+    }
+  ]
+}

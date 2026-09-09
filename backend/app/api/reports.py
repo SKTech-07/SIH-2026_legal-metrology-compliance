@@ -64,6 +64,10 @@ def generate_report_endpoint(
             if rule:
                 rule_code = rule.code
 
+        evidence_url = None
+        if v.evidence and len(v.evidence) > 0:
+            evidence_url = v.evidence[0].annotated_image_url
+
         violations_data.append({
             "id": v.id,
             "product_name": v.product.name if v.product else "N/A",
@@ -71,7 +75,8 @@ def generate_report_endpoint(
             "violation_type": v.violation_type,
             "severity": v.severity,
             "status": v.status,
-            "description": v.description
+            "description": v.description,
+            "evidence_url": evidence_url
         })
 
     fmt = payload.report_format.upper()

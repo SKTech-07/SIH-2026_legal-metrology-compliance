@@ -18,3 +18,11 @@
     @apply bg-[var(--color-surface-bg)] text-[var(--color-text-main)] antialiased font-sans;
   }
 }
+
+@layer utilities {
+  /* Safe-area bottom spacer for iOS notched devices */
+  .h-safe-area-bottom {
+    height: env(safe-area-inset-bottom, 0px);
+    min-height: 0;
+  }
+}

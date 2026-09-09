@@ -59,6 +59,20 @@ async def upload_image(
     return ImageOut.model_validate(img_record)
 
 
+@router.get("/copies/{copy_id}", response_model=List[ImageOut])
+def list_images_for_copy(
+    copy_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """Return all images uploaded for a given product copy."""
+    copy = db.query(ProductCopy).filter(ProductCopy.id == copy_id).first()
+    if not copy:
+        raise HTTPException(status_code=404, detail="Product copy not found")
+    images = db.query(ImageRecord).filter(ImageRecord.copy_id == copy_id).all()
+    return [ImageOut.model_validate(img) for img in images]
+
+
 @router.get("/file/{filename}")
 def serve_image(filename: str):
     # Check upload dir, enhanced dir, evidence dir, or report dir

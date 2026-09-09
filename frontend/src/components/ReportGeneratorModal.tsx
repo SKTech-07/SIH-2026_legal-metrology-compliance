@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, FileSpreadsheet, Download, CheckSquare, Square } from 'lucide-react';
 import type { Product } from '../types';
+import { getBaseUrl } from '../services/api';
 
 interface Props {
   inspectionId: string;
@@ -153,7 +154,7 @@ export const ReportGeneratorModal: React.FC<Props> = ({
                 <div className="text-[11px] text-emerald-300 font-mono">{format} report is ready for download.</div>
               </div>
               <a
-                href={`http://localhost:8000${generatedUrl}`}
+                href={`${getBaseUrl()}${generatedUrl}`}
                 target="_blank"
                 rel="noreferrer"
                 className="w-full sm:w-auto px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider rounded-lg shadow-md flex items-center justify-center transition-colors"
